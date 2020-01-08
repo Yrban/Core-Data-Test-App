@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Manufacturer" representedClassName="Manufacturer" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="isManufacturerOf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Widget" inverseName="isMadeBy" inverseEntity="Widget"/>
+    </entity>
+    <entity name="MassOfPartEntity" representedClassName="MassOfPartEntity" syncable="YES">
+        <attribute name="mass" optional="YES" attributeType="Transformable" customClassName="Measurement&lt;UnitMass&gt;"/>
+        <attribute name="subPart" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="isMassOfPart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Widget" inverseName="hasMassOfPart" inverseEntity="Widget"/>
+    </entity>
+    <entity name="Widget" representedClassName="Widget" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="hasMassOfPart" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MassOfPartEntity" inverseName="isMassOfPart" inverseEntity="MassOfPartEntity"/>
+        <relationship name="isMadeBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manufacturer" inverseName="isManufacturerOf" inverseEntity="Manufacturer"/>
+    </entity>
+    <elements>
+        <element name="Widget" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="Manufacturer" positionX="-54" positionY="0" width="128" height="28"/>
+        <element name="MassOfPartEntity" positionX="-36" positionY="9" width="128" height="28"/>
+    </elements>
+</model>

@@ -14,4 +14,9 @@ public class MassOfSubpart: NSObject, Codable {
         self.subPart = subpart
         self.mass = mass
     }
+    
+    init(massOfSubpart: MassOfSubpart) {
+        self.subPart = massOfSubpart.subPart
+        self.mass = massOfSubpart.mass
+    }
 }

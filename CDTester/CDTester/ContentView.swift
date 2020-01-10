@@ -116,36 +116,35 @@ struct ContentView: View {
             }
         }
     }
-    
-    func saveWidget(){
-        print("saveWidget() entered")
-        if self.massOfSubpartMeasurementDict.count > 0,
-            self.massOfSubpartMeasurementDict.count == self.numberOfSubparts,
-            self.manufacturer != "",
-            self.title != "" {
-            
-            var massPerSubpartMeasurementArray: [MassOfSubpart]
-            massPerSubpartMeasurementArray = massOfSubpartMeasurementDict.map {
-                return MassOfSubpart(subpart: $0.key, mass: Measurement(value: Double($0.value)!, unit: self.massUnit))
-            }
-            let massOfSubpartSet = Set(massPerSubpartMeasurementArray)
-            
-            let widget = Widget(context: self.managedObjectContext)
-            widget.id = UUID()
-            widget.madeBy?.name = self.manufacturer
-            widget.hasMassOfPart = massOfSubpartSet // FIXME: The crash is here
-            widget.title = self.title
-            
-            do {
-                print("SaveWidget() attempted/n")
-                try self.managedObjectContext.save()
-            } catch {
-                print("SaveWidget() failed/n")
-                // handle the Core Data error
-                // Show alert as to status
+        
+        func saveWidget(){
+            print("saveWidget() entered")
+            if self.massOfSubpartMeasurementDict.count > 0,
+                self.massOfSubpartMeasurementDict.count == self.numberOfSubparts,
+                self.manufacturer != "",
+                self.title != "" {
+                
+                var massPerSubpartMeasurementArray: [MassOfSubpart]
+                massPerSubpartMeasurementArray = massOfSubpartMeasurementDict.map {
+                    return MassOfSubpart(subpart: $0.key, mass: Measurement(value: Double($0.value)!, unit: self.massUnit))
+                }
+                
+                let widget = Widget(context: self.managedObjectContext)
+                widget.id = UUID()
+                widget.isMadeBy?.name = self.manufacturer
+                widget.addToHasMassOfPart(Set(massPerSubpartMeasurementArray) as NSSet) // FIXME: Tha crash is here
+                widget.title = self.title
+                
+                do {
+                    print("SaveWidget() attempted/n")
+                    try self.managedObjectContext.save()
+                } catch {
+                    print("SaveWidget() failed/n")
+                    // handle the Core Data error
+                    // Show alert as to status
+                }
             }
         }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -1,3 +1,12 @@
+//
+//  Widget+CoreDataProperties.swift
+//  CDTester
+//
+//  Created by Dev on 1/9/20.
+//  Copyright © 2020 Alelin Apps. All rights reserved.
+//
+//
+
 import Foundation
 import CoreData
 
@@ -10,15 +19,15 @@ extension Widget {
 
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
-    @NSManaged public var isMadeBy: Manufacturer?
     @NSManaged public var hasMassOfPart: Set<MassOfSubpart>?
-    
+    @NSManaged public var madeBy: Manufacturer?
     public var wrappedId : UUID {
         id ?? UUID()
     }
     
     public var wrappedMassOfPartArray : [MassOfSubpart] {
         Array(hasMassOfPart ?? [MassOfSubpart()])
+        
     }
     
     public var wrappedTitle : String {
@@ -26,9 +35,8 @@ extension Widget {
     }
     
     public var wrappedIsMadeBy : String {
-        isMadeBy?.name ?? "Unknown Manufacturer"
+        madeBy?.name ?? "Unknown Manufacturer"
     }
-
 
 }
 
